@@ -38,6 +38,26 @@ in a table somewhere, print the current tag alongside it.
 - **Every conductor gets a number** — if a wire has no number, the design record is
   incomplete. Fix the record, then the drawing.
 
+## Wire-number tag placement (reviewer-set rules)
+
+- **Tags sit IN LINE on the wire** — the white box breaks the wire. A tag floating
+  above or beside its wire is wrong — bring it down onto the wire. (Reviewer's words on
+  the reference sheet's in-line tag: *"That's perfect. That's how you should do it."*)
+- **Every line really needs a number.** Both sides of every coil carry a tag. An
+  unnumbered conductor means the net doesn't exist in the design record yet — STOP and
+  assign it there first, then tag the drawing. (Applying this rule to a production sheet
+  set flushed out a conductor that had no number anywhere — drawing, record, or
+  schedules.)
+- **No dot where there's no junction.** A straight-through connection point gets the
+  wire tag, not a dot. Dots mark ONLY real tees (3+ wires joining) — and every real tee
+  gets one: rail tees, parallel-tie feeds, snubber taps. (The same production sweep
+  found both kinds of error: a phantom dot on a straight run, and real tees with no dot.)
+- **A tag never covers a junction dot.** Extend the rail / shift the tag until both
+  read clean.
+- **Minimum clearance around connections:** a tag needs clear air to the connection
+  points flanking it — a parallel-tie on one side, a symbol edge on the other, nothing
+  sitting right on top of another.
+
 ## Symbols (JIC) and what draws them
 
 | Thing | JIC symbol | Helper |
@@ -49,8 +69,8 @@ in a table somewhere, print the current tag alongside it.
 | Momentary | toggle + spring arc | `switch(momentary=True)` |
 | Motor / clutch | circle with name | `circle_load()` |
 | Valve, PSU, fuse… | rectangle | `box()` |
-| Junction | filled dot | `dot()` — REQUIRED at every tee |
-| Net number | blue rounded tag on the wire | `wnum()` |
+| Junction | filled dot | `dot()` — REQUIRED at every tee, FORBIDDEN anywhere else |
+| Net number | blue rounded tag IN LINE on the wire | `wnum()` — see tag-placement rules above |
 | **Controller input** | **blue rectangle (our extension, not JIC)** | `di_box()` |
 
 Contacts and switches are always drawn in the **de-energized / de-actuated** state

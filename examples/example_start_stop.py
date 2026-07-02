@@ -33,12 +33,13 @@ cl, cr = no_contact(ax, 2.5, y1 - 0.55, "R1 (seal-in)", lblpos="below")
 wire(ax, tA, y1 - 0.55, cl, y1 - 0.55); wire(ax, cr, y1 - 0.55, tB, y1 - 0.55)
 dot(ax, tA, y1); dot(ax, tB, y1)
 
+dot(ax, XL, y1)                         # rung tees into the supply rail
 wire(ax, tB, y1, 4.3, y1)
-wnum(ax, 3.95, y1 + 0.3, 10)
+wnum(ax, 3.95, y1, 10)                  # tag IN LINE on the wire, never floating
 nl, nr = nc_contact(ax, 4.6, y1, "STOP")
 wire(ax, 4.3, y1, nl, y1)
 wire(ax, nr, y1, 5.6, y1)
-wnum(ax, 5.3, y1 + 0.3, 11)
+wnum(ax, 5.3, y1, 11)
 
 tC, tD = 5.6, 8.6                       # coil + its input sense ride the SAME node
 wire(ax, tC, y1 - 0.5, tC, y1 + 0.5)
@@ -49,16 +50,19 @@ dl, dr = di_box(ax, 7.1, y1 - 0.5, "DI1")
 wire(ax, tC, y1 - 0.5, dl, y1 - 0.5); wire(ax, dr, y1 - 0.5, tD, y1 - 0.5)
 dot(ax, tC, y1); dot(ax, tD, y1)
 wire(ax, tD, y1, XR, y1)
+dot(ax, XR, y1)                         # rung tees into the return rail
 
 # ---- Rung 2: R1 contact -> motor ------------------------------------------------
 y2 = 2.8
 ml, mr = no_contact(ax, 2.5, y2, "R1")
 wire(ax, XL, y2, ml, y2)
+dot(ax, XL, y2)                         # rung tees into the supply rail
 wire(ax, mr, y2, 5.0, y2)
-wnum(ax, 4.2, y2 + 0.3, 12)
+wnum(ax, 4.2, y2, 12)                   # tag IN LINE on the wire
 ll, lr = circle_load(ax, 5.7, y2, "M1", r=0.6)
 wire(ax, 5.0, y2, ll, y2)
 wire(ax, lr, y2, XR, y2)
+dot(ax, XR, y2)                         # rung tees into the return rail
 label(ax, 5.7, y2 - 0.95, "load (motor / lamp / valve)", size=8, color=GRAY)
 
 notes(ax, 0.8, 1.1,

@@ -58,8 +58,11 @@ of the same relay may live on different sheets — say so in both notes blocks.
 ### 4. Look at it, then fix everything at once
 
 Render, then **read the PNG yourself**. Walk the rung list: trace every connection
-end-to-end, check every net tag sits on its wire, every junction has a dot, no label
-touches a symbol or another label, contacts drawn de-energized. **List ALL problems
+end-to-end; every net tag sits **in line on its wire** (breaking it — never floating
+beside it); **every segment carries a tag** (both sides of every coil); dots at **every
+real junction and nowhere else** (a straight-through point gets the tag, not a dot); no
+tag covers a dot; clear air between a tag and the connections flanking it; no label
+touches a symbol or another label; contacts drawn de-energized. **List ALL problems
 first, then fix them in one pass** — fixing one at a time makes you forget the rest.
 
 ### 5. Human review is the gate
@@ -94,6 +97,11 @@ reviewer corrects you, use their exact words, apply the correction everywhere it
    **V**alves (adapt to the project's standard).
 6. Put controller-I/O facts on the drawing where they matter (input common polarity,
    output drive limits, watchdog behavior) — the sheet is where the builder reads them.
+7. **Net tags sit IN LINE on the wire** (breaking it) — never floating beside it;
+   **every segment is tagged** (both sides of every coil); **dots only at real
+   junctions** (a straight-through point gets the tag, not a dot) and a tag never
+   covers a dot; keep clear air between a tag and the connections flanking it (full
+   detail in conventions.md "Wire-number tag placement").
 
 ## Tooling gotchas (learned in production)
 

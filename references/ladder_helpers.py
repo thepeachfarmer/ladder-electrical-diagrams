@@ -37,14 +37,26 @@ def label(ax, x, y, s, size=10, ha="center", va="center", weight="normal", color
 
 
 def wnum(ax, x, y, num):
-    """Net (wire) number tag — blue rounded box ON the wire, per DESIGN-RECORD §8."""
+    """Net (wire) number tag — blue rounded box, per the project's net-numbering scheme.
+
+    PLACEMENT (reviewer-set rules):
+    - IN LINE on the wire — pass the wire's own y (or x for a vertical run) so the
+      white box breaks the wire.  Never floated above/beside it.
+    - EVERY wire segment carries a tag — both sides of every coil included.  If the
+      conductor has no net number yet, STOP and assign one in the design record first.
+    - Never cover a junction dot, and keep clear air to the connection points on
+      either side (ties, symbol edges) — nothing sitting right on top of another.
+    """
     ax.text(x, y, str(num), fontsize=8, ha="center", va="center", color=BLUE,
             weight="bold", zorder=6, bbox=dict(boxstyle="round,pad=0.14", fc="white",
                                                ec=BLUE, lw=0.7))
 
 
 def dot(ax, x, y, r=0.07):
-    """Junction dot — REQUIRED wherever a wire tees/branches (0.06–0.08)."""
+    """Junction dot — REQUIRED wherever 3+ wires actually join (a tee/branch), and
+    FORBIDDEN everywhere else (0.06–0.08).  A straight-through connection point gets
+    the wire's wnum() tag there instead, never a dot.  Rail tees, parallel-tie feeds,
+    and snubber taps all count as junctions."""
     ax.add_patch(plt.Circle((x, y), r, color="k", zorder=4))
 
 
@@ -118,7 +130,9 @@ def circle_load(ax, cx, cy, name, r=0.5):
 
 # ---- sheet scaffolding ------------------------------------------------------------
 def rails(ax, xl, xr, ybot, ytop, lname="+24 V", rname="0 V", lnet=102, rnet=400):
-    """Vertical ladder rails: left = supply, right = return, each with its net tag."""
+    """Vertical ladder rails: left = supply, right = return, each with its net tag.
+    Keep the TOP RUNG's rail junction ≥ ~0.7 below ytop so the bus tag (ytop-0.35)
+    doesn't cover that rung's junction dot."""
     wire(ax, xl, ybot, xl, ytop)
     wire(ax, xr, ybot, xr, ytop)
     label(ax, xl, ytop + 0.35, lname, size=13, weight="bold")
