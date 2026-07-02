@@ -81,7 +81,21 @@ Contacts and switches are always drawn in the **de-energized / de-actuated** sta
 
 - **Rails:** supply left, return right, vertical, with net tags at the top — `rails()`.
 - **Rungs** run left → right: switch/contact logic on the left, coil (or load) on the
-  right, return to the right rail. Rung spacing ≥ ~1.9 units; parallel blocks need ~2.4.
+  right, return to the right rail — and **supply-left / return-right applies to EVERY
+  sub-drawing on a sheet**, not just the main ladder (a production sheet's motor section
+  once used horizontal top/bottom rails and got rejected in review).
+- **Wires land ON the element's edge** — always wire to the coordinates the helper
+  returns (`coil()`/`di_box()`/`box()` edges), never to a hardcoded offset. A visible
+  gap between a wire end and its coil is a defect (a real review catch: offsets sized
+  for the wide input box left every coil's wires stopping short).
+- **Element pitch inside a parallel block ≥ 1.05** (> the 0.84 coil diameter), and rung
+  pitch sized so adjacent rungs' elements never touch (~0.5+ clear air). Reviewer's
+  words: "space this stuff out so we can read where it's at."
+- **A form-C (changeover) relay is drawn as its CONTACTS** — a real NO contact and a
+  real NC contact (JIC bars/slash), never a pictorial pivot-lever with a dashed
+  "energized" path. For a changeover feeding a load lead: NO from the supply rail and
+  NC to the return rail meet at the lead's node, drawn de-energized so the rest state
+  reads directly off the sheet.
 - **Branches tie straight to the rail** when the rail is right there — don't add a
   gratuitous tie bar.
 - **Parallel elements** (a coil + its input sense; two coils sharing a drive) hang
